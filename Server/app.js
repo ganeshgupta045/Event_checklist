@@ -37,10 +37,12 @@ const __dirname = path.dirname(__filename);
 // Serve static files from React build
 app.use(express.static(path.join(__dirname, "../Client/dist")));
 
-// React fallback (for SPA routing)
-app.get("*", (req, res) => {
+
+// React fallback (Express 5 safe)
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, "../Client/dist/index.html"));
 });
+
 
 // ===== GLOBAL ERROR HANDLER (MUST BE LAST) =====
 app.use((err, req, res, next) => {
